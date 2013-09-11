@@ -131,6 +131,8 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
 
         if ( isset($options['lifetimelimit'])) {
             $this->_lifetimelimit = (int) min($options['lifetimelimit'], self::MAX_LIFETIME);
+        } else {
+            $this->_lifetimelimit = (int) self::MAX_LIFETIME;
         }
 
         if ( isset($options['compress_threshold'])) {
