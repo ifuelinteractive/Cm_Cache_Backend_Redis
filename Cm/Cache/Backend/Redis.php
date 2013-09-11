@@ -222,9 +222,11 @@ class Cm_Cache_Backend_Redis extends Zend_Cache_Backend implements Zend_Cache_Ba
             throw new CredisException("Could not set cache key $id");
         }
 
-        // Set expiration if specified
+        // Set expiration if specified if not set XML TTL or fall back to MAX_LIFETIME
         if ($lifetime) {
           $this->_redis->expire(self::PREFIX_KEY.$id, min($lifetime, self::MAX_LIFETIME));
+        } else {
+            $this->_redis->expire(self::PREFIX_KEY.$id, $this->_lifetimelimit);
         }
 
         // Process added tags
